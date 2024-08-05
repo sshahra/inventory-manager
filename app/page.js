@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { Container, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Typography } from '@mui/material';
+import { Container, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Typography, Dialog, DialogContent } from '@mui/material';
 import { styled } from '@mui/system';
 //import DeleteIcon from '@mui/icons-material/Delete';
 import { db } from '@/firebase';
@@ -55,10 +55,21 @@ const StyledTextField = styled(TextField)({
   },
 });
 
+const TopButton = styled(Button)({
+  position: 'absolute',
+  top: '1rem',
+  zIndex: 1000,
+  '&:hover': {
+    backgroundColor: '#4b0082',
+  },
+
+});
+
 export default function Home() {
   const [item, setItem] = useState({ name: '', quantity: '', price: '' });
   const [inventory, setInventory] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const handleAddItem = async (e) => {
     e.preventDefault();
@@ -96,75 +107,93 @@ export default function Home() {
   );
 
   return (
-    <StyledContainer maxWidth="sm">
-      <Typography variant="h3" style={{ marginBottom: '1.5rem', color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
-        Inventory Manager
-      </Typography>
-      <StyledTextField
-        label="Search"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        fullWidth
-        margin="normal"
-        variant="outlined"
-      />
-      <Typography variant="h5" style={{  color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
-        Add New Item
-      </Typography>
-      <StyledTextField
-        label="Item Name"
-        value={item.name}
-        onChange={(e) => setItem({ ...item, name: e.target.value })}
-        fullWidth
-        margin="normal"
-        variant="outlined"
-      />
-      <StyledTextField
-        label="Quantity"
-        value={item.quantity}
-        onChange={(e) => setItem({ ...item, quantity: e.target.value })}
-        fullWidth
-        margin="normal"
-        variant="outlined"
-      />
-      <StyledTextField
-        label="Price ($)"
-        value={item.price}
-        onChange={(e) => setItem({ ...item, price: e.target.value })}
-        fullWidth
-        margin="normal"
-        variant="outlined"
-      />
-      <StyledButton variant="contained" onClick={handleAddItem}>
-        Add Item
+    <div>
+      <StyledButton style={{ left: '1rem' }} variant="contained" onClick={() => setInfoOpen(true)}>
+        Info
       </StyledButton>
-      <StyledTableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Item</StyledTableCell>
-              <StyledTableCell align="right">Quantity</StyledTableCell>
-              <StyledTableCell align="right">Price ($)</StyledTableCell>
-              <StyledTableCell align="right">Actions</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredInventory.map((entry, index) => (
-              <TableRow key={index}>
-                <TableCell>{entry.name}</TableCell>
-                <TableCell align="right">{entry.quantity}</TableCell>
-                <TableCell align="right">{entry.price}</TableCell>
-                <TableCell align="right">
-                  <IconButton color="secondary" onClick={() => handleDeleteItem(entry.id)}>
-                    {/* <DeleteIcon /> */}
-                    <a>❌</a>
-                  </IconButton>
-                </TableCell>
+      <TopButton style={{ right: '1rem' ,backgroundColor: '#6a0dad'  }} variant="contained" href="https://github.com/sshahra/inventory-manager">
+        GitHub
+      </TopButton>
+      <Dialog open={infoOpen} onClose={() => setInfoOpen(false)}>
+        <DialogContent>
+          <Typography variant="h5" style={{ color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
+            About Me
+          </Typography>
+          <Typography variant="body1" style={{ color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
+            Your information and project details here.
+          </Typography>
+        </DialogContent>
+      </Dialog>
+      <StyledContainer maxWidth="sm">
+        <Typography variant="h3" style={{ marginBottom: '1.5rem', color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
+          Inventory Manager
+        </Typography>
+        <StyledTextField
+          label="Search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+        <Typography variant="h5" style={{ color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
+          Add New Item
+        </Typography>
+        <StyledTextField
+          label="Item Name"
+          value={item.name}
+          onChange={(e) => setItem({ ...item, name: e.target.value })}
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+        <StyledTextField
+          label="Quantity"
+          value={item.quantity}
+          onChange={(e) => setItem({ ...item, quantity: e.target.value })}
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+        <StyledTextField
+          label="Price ($)"
+          value={item.price}
+          onChange={(e) => setItem({ ...item, price: e.target.value })}
+          fullWidth
+          margin="normal"
+          variant="outlined"
+        />
+        <StyledButton variant="contained" onClick={handleAddItem}>
+          Add Item
+        </StyledButton>
+        <StyledTableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Item</StyledTableCell>
+                <StyledTableCell align="right">Quantity</StyledTableCell>
+                <StyledTableCell align="right">Price ($)</StyledTableCell>
+                <StyledTableCell align="right">Actions</StyledTableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </StyledTableContainer>
-    </StyledContainer>
+            </TableHead>
+            <TableBody>
+              {filteredInventory.map((entry, index) => (
+                <TableRow key={index}>
+                  <TableCell>{entry.name}</TableCell>
+                  <TableCell align="right">{entry.quantity}</TableCell>
+                  <TableCell align="right">{entry.price}</TableCell>
+                  <TableCell align="right">
+                    <IconButton color="secondary" onClick={() => handleDeleteItem(entry.id)}>
+                      {/* <DeleteIcon /> */}
+                      <a>❌</a>
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </StyledTableContainer>
+      </StyledContainer>
+    </div>
   );
 }
