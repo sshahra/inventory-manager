@@ -133,7 +133,7 @@ export default function Home() {
         variant="outlined"
       />
       <StyledButton variant="contained" onClick={handleAddItem}>
-        Add Item
+        Add Item name
       </StyledButton>
       <StyledTableContainer component={Paper}>
         <Table>
