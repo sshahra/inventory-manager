@@ -129,10 +129,10 @@ export default function Home() {
           Inventory Manager
         </Typography>
         <StyledTextField
-          label="Search"
+          label="Search for Item"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          fullWidth
+          fullWidth 
           margin="normal"
           variant="outlined"
         />
