@@ -97,7 +97,7 @@ export default function Home() {
 
   return (
     <StyledContainer maxWidth="sm">
-      <Typography variant="h4" style={{ marginBottom: '1.5rem', color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
+      <Typography variant="h3" style={{ marginBottom: '1.5rem', color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
         Inventory Manager
       </Typography>
       <StyledTextField
@@ -108,8 +108,11 @@ export default function Home() {
         margin="normal"
         variant="outlined"
       />
+      <Typography variant="h5" style={{  color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
+        Add New Item
+      </Typography>
       <StyledTextField
-        label="Item"
+        label="Item Name"
         value={item.name}
         onChange={(e) => setItem({ ...item, name: e.target.value })}
         fullWidth
@@ -125,7 +128,7 @@ export default function Home() {
         variant="outlined"
       />
       <StyledTextField
-        label="Price"
+        label="Price ($)"
         value={item.price}
         onChange={(e) => setItem({ ...item, price: e.target.value })}
         fullWidth
@@ -133,7 +136,7 @@ export default function Home() {
         variant="outlined"
       />
       <StyledButton variant="contained" onClick={handleAddItem}>
-        Add Item name
+        Add Item
       </StyledButton>
       <StyledTableContainer component={Paper}>
         <Table>
@@ -154,6 +157,7 @@ export default function Home() {
                 <TableCell align="right">
                   <IconButton color="secondary" onClick={() => handleDeleteItem(entry.id)}>
                     {/* <DeleteIcon /> */}
+                    <a>❌</a>
                   </IconButton>
                 </TableCell>
               </TableRow>
