@@ -133,14 +133,7 @@ export default function Home() {
         <Typography  variant={isMobile ? 'h4' : 'h3'} style={{ marginBottom: '1.5rem', color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
           Inventory Manager
         </Typography>
-        <StyledTextField
-          label="Search for Item"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          fullWidth 
-          margin="normal"
-          variant="outlined"
-        />
+        
         <Typography variant="h5" style={{ color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
           Add New Item
         </Typography>
@@ -171,6 +164,14 @@ export default function Home() {
         <StyledButton variant="contained" onClick={handleAddItem}>
           Add Item
         </StyledButton>
+        <StyledTextField
+          label="Search for Item"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          fullWidth 
+          margin="normal"
+          variant="outlined"
+        />
         <StyledTableContainer component={Paper}>
           <Table>
             <TableHead>
