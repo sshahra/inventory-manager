@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { Container, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Typography, Dialog, DialogContent } from '@mui/material';
+import { Container, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Typography, Dialog, DialogContent ,useMediaQuery } from '@mui/material';
 import { styled } from '@mui/system';
 //import DeleteIcon from '@mui/icons-material/Delete';
 import { db } from '@/firebase';
 import { collection, addDoc, query, onSnapshot, doc, deleteDoc } from "firebase/firestore";
+import { useTheme } from '@mui/material/styles';
 
 const StyledContainer = styled(Container)({
   marginTop: '2rem',
@@ -106,6 +107,10 @@ export default function Home() {
     entry.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
+
   return (
     <div>
       <StyledButton style={{ left: '1rem' }} variant="contained" onClick={() => setInfoOpen(true)}>
@@ -125,7 +130,7 @@ export default function Home() {
         </DialogContent>
       </Dialog>
       <StyledContainer maxWidth="sm">
-        <Typography variant="h3" style={{ marginBottom: '1.5rem', color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
+        <Typography  variant={isMobile ? 'h4' : 'h3'} style={{ marginBottom: '1.5rem', color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
           Inventory Manager
         </Typography>
         <StyledTextField
