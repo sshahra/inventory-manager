@@ -125,7 +125,10 @@ export default function Home() {
             About Me
           </Typography>
           <Typography variant="body1" style={{ color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
-            Your information and project details here.
+            Name : Shubh  Shahra
+            {/* add next line */}
+            <br/>
+            This is a simple inventory manager app that allows you to add and delete items from a list. It is built using Firebase and Next.js.
           </Typography>
         </DialogContent>
       </Dialog>
