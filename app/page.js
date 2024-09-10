@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { Container, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Typography, Dialog, DialogContent ,useMediaQuery } from '@mui/material';
+import { Container, TextField, Button, Box,Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Typography, Dialog, DialogContent ,useMediaQuery } from '@mui/material';
 import { styled } from '@mui/system';
 //import DeleteIcon from '@mui/icons-material/Delete';
 import { db } from '@/firebase';
 import { collection, addDoc, query, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import { useTheme } from '@mui/material/styles';
+
 
 const StyledContainer = styled(Container)({
   marginTop: '2rem',
@@ -122,14 +123,17 @@ export default function Home() {
       <Dialog open={infoOpen} onClose={() => setInfoOpen(false)}>
         <DialogContent>
           <Typography variant="h5" style={{ color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
-            About Me
+            About
           </Typography>
           <Typography variant="body1" style={{ color: '#4b0082', fontFamily: 'Roboto, sans-serif' }}>
-            Name : Shubh  Shahra
+            Devloper : Shubh  Shahra
             {/* add next line */}
             <br/>
             This is a simple inventory manager app that allows you to add and delete items from a list. It is built using Firebase and Next.js.
           </Typography>
+          <Box>
+          <iframe width="100%" height="350rm" src="https://www.youtube.com/embed/LQQ4CKYTUek" title="Inventory Manager Demo 👩 💻" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </Box>
         </DialogContent>
       </Dialog>
       <StyledContainer maxWidth="sm">
